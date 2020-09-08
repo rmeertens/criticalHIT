@@ -2,7 +2,8 @@
 import requests
 import json
 import random
-import supersecretparameters
+from supersecretparameters import slack_token, slack_icon_url, slack_user_name, slack_channel
+
 
 # Available dice: D20, D12, D10, D8, D6, D4
 # Exercises are tuples with (dice (int), exercise (string))
@@ -30,7 +31,7 @@ def post_message_to_slack(text, blocks = None):
 
 if __name__ == "__main__":
     slack_info = "Who is ready to do some training? Give me:"
-    for dice, exercise in random.choices(exercises, k=3):
+    for dice, exercise in random.sample(exercises, 3):
         num_times = random.randint(1, dice)
         if num_times == dice:
             slack_info += "\n :d{}: CRITICAL HIT! {} {}!!!".format(dice, num_times, exercise)
